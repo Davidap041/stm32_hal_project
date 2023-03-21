@@ -8,4 +8,11 @@ determine whether they are fit for use. Unit testing finds problems early
 in the development cycle.
 
 More information about PlatformIO Unit Testing:
-- https://docs.platformio.org/en/latest/advanced/unit-testing/index.html
+
+https://docs.platformio.org/en/latest/advanced/unit-testing/index.html
+
+https://docs.platformio.org/en/stable/advanced/unit-testing/frameworks/unity.html
+
+https://github.com/ttarnowski/esp8266-unit-testing/blob/Day32/platformio.ini
+
+https://docs.platformio.org/en/stable/tutorials/ststm32/stm32cube_debugging_unit_testing.html#tutorial-stm32cube-debugging-unit-testing
