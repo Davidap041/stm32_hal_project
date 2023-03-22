@@ -1,58 +1,66 @@
+#include "test_main.h"
 #include "unity_config.h"
-#include "stm32f1xx_hal.h"
 
-#define USARTx USART2
-#define USARTx_CLK_ENABLE() __HAL_RCC_USART2_CLK_ENABLE()
-#define USARTx_CLK_DISABLE() __HAL_RCC_USART2_CLK_DISABLE()
+#define USARTx USART1
+#define USARTx_CLK_ENABLE() __HAL_RCC_USART1_CLK_ENABLE()
+#define USARTx_CLK_DISABLE() __HAL_RCC_USART1_CLK_DISABLE()
 #define USARTx_RX_GPIO_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
 #define USARTx_TX_GPIO_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
 #define USARTx_RX_GPIO_CLK_DISABLE() __HAL_RCC_GPIOA_CLK_DISABLE()
 #define USARTx_TX_GPIO_CLK_DISABLE() __HAL_RCC_GPIOA_CLK_DISABLE()
 
-#define USARTx_FORCE_RESET() __HAL_RCC_USART2_FORCE_RESET()
-#define USARTx_RELEASE_RESET() __HAL_RCC_USART2_RELEASE_RESET()
+// #define USARTx_FORCE_RESET() __HAL_RCC_USART1_FORCE_RESET()
+// #define USARTx_RELEASE_RESET() __HAL_RCC_USART1_RELEASE_RESET()
 
-#define USARTx_TX_PIN GPIO_PIN_2
-#define USARTx_TX_GPIO_PORT GPIOA
-#define USARTx_TX_AF GPIO_AF7_USART2
-#define USARTx_RX_PIN GPIO_PIN_3
-#define USARTx_RX_GPIO_PORT GPIOA
-#define USARTx_RX_AF GPIO_AF7_USART2
+// #define USARTx_TX_PIN GPIO_PIN_2
+// #define USARTx_TX_GPIO_PORT GPIOA
+// #define USARTx_TX_AF GPIO_AF7_USART2
+// #define USARTx_RX_PIN GPIO_PIN_3
+// #define USARTx_RX_GPIO_PORT GPIOA
+// #define USARTx_RX_AF GPIO_AF7_USART2
 
-static UART_HandleTypeDef UartHandle;
+UART_HandleTypeDef huart1;
 
 void unityOutputStart()
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+  /* USER CODE BEGIN USART1_MspInit 0 */
 
-  USARTx_TX_GPIO_CLK_ENABLE();
-  USARTx_RX_GPIO_CLK_ENABLE();
+  /* USER CODE END USART1_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_USART1_CLK_ENABLE();
 
-  USARTx_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    /**USART1 GPIO Configuration
+    PA8     ------> USART1_CK
+    PA9     ------> USART1_TX
+    PA10     ------> USART1_RX
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin = USARTx_TX_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-//   GPIO_InitStruct.Alternate = USARTx_TX_AF;
+    GPIO_InitStruct.Pin = GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  HAL_GPIO_Init(USARTx_TX_GPIO_PORT, &GPIO_InitStruct);
+  /* USER CODE BEGIN USART1_MspInit 1 */
 
-  GPIO_InitStruct.Pin = USARTx_RX_PIN;
-//   GPIO_InitStruct.Alternate = USARTx_RX_AF;
+  /* USER CODE END USART1_MspInit 1 */
 
-  HAL_GPIO_Init(USARTx_RX_GPIO_PORT, &GPIO_InitStruct);
-  UartHandle.Instance = USARTx;
 
-  UartHandle.Init.BaudRate = 115200;
-  UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
-  UartHandle.Init.StopBits = UART_STOPBITS_1;
-  UartHandle.Init.Parity = UART_PARITY_NONE;
-  UartHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  UartHandle.Init.Mode = UART_MODE_TX_RX;
-  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
 
-  if (HAL_UART_Init(&UartHandle) != HAL_OK)
+  if (HAL_UART_Init(&huart1) != HAL_OK)
   {
     while (1)
     {
@@ -62,7 +70,7 @@ void unityOutputStart()
 
 void unityOutputChar(char c)
 {
-  HAL_UART_Transmit(&UartHandle, (uint8_t *)(&c), 1, 1000);
+  HAL_UART_Transmit(&huart1, (uint8_t *)(&c), 1, 1000);
 }
 
 void unityOutputFlush() {}

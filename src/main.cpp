@@ -34,6 +34,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN WHILE */
+  HAL_Delay(3000);
 printMessage:
   printWelcomeMessage();
 
@@ -53,13 +54,13 @@ printMessage:
 }
 /**
  * @brief Welcome message Print function
- * @param  
+ * @param
  */
 void printWelcomeMessage(void)
 {
-  HAL_UART_Transmit(&huart1, (uint8_t *)"\033[0;0H", strlen("\033[0;0H"), HAL_MAX_DELAY);
-  HAL_UART_Transmit(&huart1, (uint8_t *)"\033[2J", strlen("\033[2J"), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, (uint8_t *)"\r\n", strlen("\r\n"), HAL_MAX_DELAY);
   HAL_UART_Transmit(&huart1, (uint8_t *)WELCOME_MSG, strlen(WELCOME_MSG), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, (uint8_t *)"\r\n", strlen("\r\n"), HAL_MAX_DELAY);
   HAL_UART_Transmit(&huart1, (uint8_t *)MAIN_MENU, strlen(MAIN_MENU), HAL_MAX_DELAY);
 }
 /**
@@ -76,7 +77,7 @@ uint8_t readUserInput(void)
 }
 uint8_t processUserInput(uint8_t opt)
 {
-  char msg[30];
+  char msg[31];
 
   if (!opt || opt > 3)
     return 0;
