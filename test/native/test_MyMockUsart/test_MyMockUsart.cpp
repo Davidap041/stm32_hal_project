@@ -1,50 +1,73 @@
 #include <unity.h>
 #include <MockUsart/MockUsart.hpp>
 
-MockUsart* mockUsart;
+MockUsart mockUsart;
 
 void setUp(void)
 {
   // set stuff up here
-  mockUsart = new MockUsart();
 }
 
 void tearDown(void)
 {
   // clean stuff up here
-  delete mockUsart;
 }
 
-void test_initialize_usart_object(void)
+void test_initialize_usart_begin(void)
 {
   bool actual;
   int expected = true;
   // test stuff
-  if (mockUsart)
-  {
-    actual = true;
-  }
-  else
-  {
-    actual = false;
-  }
+  actual = mockUsart.begin();
 
   TEST_ASSERT_EQUAL_INT32(expected, actual);
 }
+void test_initialize_usart_begin_baud_rate(void)
+{
+  int expected = true;
+  bool actual;
+  // test stuff
+  actual = mockUsart.begin(115200);
+
+  TEST_ASSERT_EQUAL_INT32(expected, actual);
+}
+void test_initialize_usart_begin_custom_pin(void)
+{
+  bool actual;
+  int expected = true;
+  // test stuff
+  actual = mockUsart.begin(115200);
+
+  TEST_ASSERT_EQUAL_INT32(expected, actual);
+}
+void test_initialize_usart_begin_custom_pin_and_baudrate(void)
+{
+  bool actual;
+  int expected = true;
+  // test stuff
+  actual = mockUsart.begin(9, 10, 115200);
+
+  TEST_ASSERT_EQUAL_INT32(expected, actual);
+}
+
 void test_dump_mock_implementation()
 {
   bool actual;
   int expected = false;
   // test stuff
-  actual = mockUsart->dumpImplementation();
+
+  actual = mockUsart.dumpImplementation();
 
   TEST_ASSERT_EQUAL_INT32(expected, actual);
 }
 int runUnityTests(void)
 {
   UNITY_BEGIN();
-  RUN_TEST(test_initialize_usart_object);
   RUN_TEST(test_dump_mock_implementation);
+  RUN_TEST(test_initialize_usart_begin);
+  RUN_TEST(test_initialize_usart_begin_baud_rate);
+  RUN_TEST(test_initialize_usart_begin_custom_pin);
+  RUN_TEST(test_initialize_usart_begin_custom_pin_and_baudrate);
   return UNITY_END();
 }
 /**
