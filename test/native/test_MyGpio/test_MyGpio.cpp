@@ -30,7 +30,12 @@ void test_dumpFalse_should_return_false(void)
   int expected = false;
   TEST_ASSERT_EQUAL_INT32(expected, actual);
 }
-
+// Serial.begin() -- construtor 1
+// Serial.begin(115200) -- construtor 2
+// Serial.begin(9,10) -- construtor 3
+// Serial.begin(9,10,115200) -- construtor 3
+// Serial.end() -- desconstrutor 
+// 
 int runUnityTests(void)
 {
   UNITY_BEGIN();

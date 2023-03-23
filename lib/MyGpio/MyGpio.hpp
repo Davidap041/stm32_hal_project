@@ -7,6 +7,6 @@ public:
     MyGpio(/* args */);
     bool dumpTrue();
     bool dumpFalse();
-bool dumpStatus();
+    bool dumpStatus();
     ~MyGpio();
 };

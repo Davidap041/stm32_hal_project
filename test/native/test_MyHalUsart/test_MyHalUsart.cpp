@@ -1,18 +1,18 @@
 #include <unity.h>
-#include <myUsart.hpp>
+#include <HalUsart/HalUsart.hpp>
 
-MyUsart *myUsart;
+HalUsart* halUsart;
 
 void setUp(void)
 {
   // set stuff up here
-  myUsart = new MyUsart();
+  halUsart = new HalUsart();
 }
 
 void tearDown(void)
 {
   // clean stuff up here
-  delete myUsart;
+  delete halUsart;
 }
 
 void test_initialize_usart_object(void)
@@ -20,7 +20,7 @@ void test_initialize_usart_object(void)
   bool actual;
   int expected = true;
   // test stuff
-  if (myUsart)
+  if (halUsart)
   {
     actual = true;
   }
@@ -31,11 +31,20 @@ void test_initialize_usart_object(void)
 
   TEST_ASSERT_EQUAL_INT32(expected, actual);
 }
+void test_dump_hal_implementation()
+{
+  bool actual;
+  int expected = true;
+  // test stuff
+  actual = halUsart->dumpImplementation();
 
+  TEST_ASSERT_EQUAL_INT32(expected, actual);
+}
 int runUnityTests(void)
 {
   UNITY_BEGIN();
   RUN_TEST(test_initialize_usart_object);
+  RUN_TEST(test_dump_hal_implementation);
   return UNITY_END();
 }
 /**

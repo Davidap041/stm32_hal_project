@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <MyUsart.hpp>
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
 /** Define Declaraction constants*/
@@ -19,6 +20,8 @@ static void MX_USART1_UART_Init(void);
 void printWelcomeMessage(void);
 uint8_t readUserInput(void);
 uint8_t processUserInput(uint8_t opt);
+
+MyUsart *myUsart;
 
 int main(void)
 {

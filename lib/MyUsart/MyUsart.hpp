@@ -1,8 +1,10 @@
+#pragma once
 class MyUsart
 {
 private:
     /* data */
 public:
-    MyUsart(/* args */);
-    ~MyUsart();
+    MyUsart(/* args */){};
+    ~MyUsart(){};
+    virtual int dumpImplementation() const = 0;
 };
