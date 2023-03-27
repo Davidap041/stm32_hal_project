@@ -1,0 +1,44 @@
+Brianstorm Tests:
+    Type of tests:
+    ☐ TDD: Write a failing test, 
+            make it pass, 
+            refactor
+    ☐ BDD: User Stories
+    test_myClass_should_doSomething_when_ConfiguredInsomeHow
+    ☐ Happy Day - Perfect success flux
+    Simple Test Patterm:
+        ☐ Set up starting conditions
+        ☐ Run function under test
+        ☐ Verify effect
+    
+    Challengs: 
+    ☐ Do The Simplest Thing That Could Possibly Work
+    ☐ YAGNI - You Ain't Gonna Need It
+
+    GPIO Interface:
+    ☐ each pin can be set as input/output
+    ☐ each pin can be set high or low
+    ☐ each pin can be read
+    ☐ each port can be read in one word
+    ☐ has init function to config defaults by pin
+    ☐ each pin can have its active polaity reversed
+
+ExampleBrianstorm Tests: 
+    GPIO:
+    ✔ void GPIO_init(void) @done (24/03/2023 18:04:12)
+    --  Configure
+    ☐ Gpio_setPinAsInput(pin)
+    ☐ Gpio_setPinAsOutput(pin)
+    ☐ Gpio_setPinAsOutput(pin, mode)
+    ☐ Gpio_setPinAsOutput(pin, mode,altern)
+    ☐ Gpio_setPullMode
+    -- Driving
+    ☐ GPIO_ReadPin(pin)
+    ☐ GPIO_CleanPin(pin)
+    ☐ GPIO_SetPin(port)
+    ☐ GPIO_TogglePin(port)
+    -- DeInitialize
+    ☐ GPIO_DeInitialize(pin)
+
+
+    
